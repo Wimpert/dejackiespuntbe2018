@@ -9,6 +9,12 @@ function respondHello(req, res, next) {
     next();
 }
 
+
+function handleTest(req, res, next) {
+    res.send(process.env);
+    next();
+}
+
 function handleMail(req, res, next){
     console.log("attemping to send mail:");
     if(req.headers.host != "localhost:8080") {
@@ -71,6 +77,7 @@ server.head('/hello/:name', respondHello);
 
 
 server.post('/mail', handleMail);
+server.get('/test', handleTest)
 
 server.listen(8080, function() {
     console.log('%s listening at %s', server.name, server.url);
