@@ -13,7 +13,7 @@ $(function() {
             event.preventDefault(); // prevent default submit behaviour
             // get values from FORM
             var name = $("input#name").val();
-            var firstname = $("input#firstname").val();
+            var firstName = $("input#firstname").val();
             var email = $("input#email").val();
             var phone = $("input#phone").val();
             var teamname = $("input#team-name").val();
@@ -24,10 +24,10 @@ $(function() {
             //}
 
 
-            var data = firstname+splitter+name+splitter+email+splitter+phone+splitter+teamname;
-
+            var data = firstName+splitter+name+splitter+email+splitter+phone+splitter+teamname;
+            console.log(data);
             data  = {
-                firstname : firstName,
+                firstName : firstName,
                 name: name,
                 email:  email,
                 phone: phone,

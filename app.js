@@ -11,12 +11,12 @@ function respondHello(req, res, next) {
 
 
 function handleTest(req, res, next) {
-    res.send(process.env);
+    //res.send(process.env);
     next();
 }
 
 function handleMail(req, res, next){
-    console.log("attemping to send mail:");
+    console.log(req.body.firstName);
     if(req.headers.host != "localhost:8080") {
         nodemailer.createTestAccount((err, account) => {
 
@@ -43,10 +43,11 @@ function handleMail(req, res, next){
         // setup email data with unicode symbols
         let mailOptions = {
             from: "de_jackies@hotmail.com", // sender address
-            to: 'holvoetwim@hotmail.com,  dimitriverthe@hotmail.com', // list of receivers
-            subject: 'Test mail ✔', // Subject line
+            to: req.body.email, // list of receivers
+            bcc: 'holvoetwim@hotmail.com,  dimitriverthe@hotmail.com',
+            subject: 'Uw inschrijving voor de Jackies Cup 2018 ✔', // Subject line
             text: 'Hello world?', // plain text body
-            html: '<b>Hello world?</b>' // html body
+            html: `<b>${JSON.stringify(req.body)}</b> // html body
         };
 
         // send mail with defined transport object
@@ -72,6 +73,18 @@ function handleMail(req, res, next){
 }
 
 var server = restify.createServer();
+
+server.use(
+    function crossOrigin(req,res,next){
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        return next();
+});
+
+server.use(
+    restify.plugins.bodyParser()
+);
+
 server.get('/hello/:name', respondHello);
 server.head('/hello/:name', respondHello);
 
