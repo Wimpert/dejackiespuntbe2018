@@ -25,7 +25,7 @@ $(function() {
 
 
             var data = firstName+splitter+name+splitter+email+splitter+phone+splitter+teamname;
-            console.log(data);
+
             data  = {
                 firstName : firstName,
                 name: name,
@@ -39,10 +39,10 @@ $(function() {
            var server = window.location.origin;
             console.log(server);
             if (server.indexOf("localhost") > 0){
-               server = "http://localhost:8080/"
+               server = "http://localhost:8080"
            }
+           server = server.concat("/mail");
 
-           server = server.concat("mail");
             console.log(server);
 
             $.ajax({
