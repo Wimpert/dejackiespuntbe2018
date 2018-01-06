@@ -37,13 +37,13 @@ $(function() {
             $("input#inschrijven").val = "uw aanvraag wordt verwerkt, even geduld.";
 
            var server = window.location.origin;
-           if (server.indexOf(("localhost") > 0)){
+            console.log(server);
+            if (server.indexOf("localhost") > 0){
                server = "http://localhost:8080/"
            }
 
            server = server.concat("mail");
             console.log(server);
-            console.log(data);
 
             $.ajax({
                 //url: "././mail/contact_me.php",
