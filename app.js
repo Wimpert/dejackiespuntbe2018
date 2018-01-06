@@ -47,7 +47,7 @@ function handleMail(req, res, next){
             bcc: 'holvoetwim@hotmail.com,  dimitriverthe@hotmail.com',
             subject: 'Uw inschrijving voor de Jackies Cup 2018 ✔', // Subject line
             text: 'Hello world?', // plain text body
-            html: `<b>${JSON.stringify(req.body)}</b> // html body
+            html: `<b>${JSON.stringify(req.body)}</b>` // html body
         };
 
         // send mail with defined transport object
