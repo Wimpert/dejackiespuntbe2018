@@ -35,8 +35,8 @@ function handleMail(req, res, next){
         var transporter = nodemailer.createTransport({
             service: "hotmail",
             auth: {
-                user: "de_jackies@hotmail.com",
-                pass: "spelvreugde666"
+                user: process.env.USER,
+                pass: process.env.PASSWORD
             }
         });
 
