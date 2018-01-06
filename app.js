@@ -17,7 +17,7 @@ function handleTest(req, res, next) {
 
 function handleMail(req, res, next){
     console.log(req.body.firstName);
-    if(req.headers.host != "localhost:8080") {
+    //if(req.headers.host != "localhost:8080") {
         nodemailer.createTestAccount((err, account) => {
 
             // create reusable transporter object using the default SMTP transport
@@ -43,11 +43,11 @@ function handleMail(req, res, next){
         // setup email data with unicode symbols
         let mailOptions = {
             from: "de_jackies@hotmail.com", // sender address
-            to: req.body.email, // list of receivers
+            to: "holvoetwim@hotmail.com", // list of receivers
             bcc: 'holvoetwim@hotmail.com,  dimitriverthe@hotmail.com',
             subject: 'Uw inschrijving voor de Jackies Cup 2018 ✔', // Subject line
             text: 'Hello world?', // plain text body
-            html: `<b>${JSON.stringify(req.body)}</b>` // html body
+            html: `<b>test</b>` // html body
         };
 
         // send mail with defined transport object
@@ -64,7 +64,7 @@ function handleMail(req, res, next){
 // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
         });
     });
-    };
+   // };
     // Generate test SMTP service account from ethereal.email
     // Only needed if you don't have a real mail account for testing
 
