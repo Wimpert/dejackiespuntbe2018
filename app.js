@@ -11,19 +11,18 @@ function respondHello(req, res, next) {
 
 function handleMail(req, res, next){
     console.log("attemping to send mail:");
-    // Generate test SMTP service account from ethereal.email
-    // Only needed if you don't have a real mail account for testing
-    nodemailer.createTestAccount((err, account) => {
+    if(req.headers.host != "localhost:8080") {
+        nodemailer.createTestAccount((err, account) => {
 
-        // create reusable transporter object using the default SMTP transport
-        /*let transporter = nodemailer.createTransport({
+            // create reusable transporter object using the default SMTP transport
+            /*let transporter = nodemailer.createTransport({
             host: 'smtp-mail.outlook.com',
-            port: 587,
-            secure: false, // true for 465, false for other ports
-            debug: true,
-            auth: {
+                port: 587,
+                secure: false, // true for 465, false for other ports
+                debug: true,
+                auth: {
                 user: "de_jackies@hotmail.com", // generated ethereal user
-                pass: "spelvreugde666"  // generated ethereal password
+                    pass: "spelvreugde666"  // generated ethereal password
             }
         });*/
 
@@ -35,7 +34,7 @@ function handleMail(req, res, next){
             }
         });
 
-    // setup email data with unicode symbols
+        // setup email data with unicode symbols
         let mailOptions = {
             from: "de_jackies@hotmail.com", // sender address
             to: 'holvoetwim@hotmail.com,  dimitriverthe@hotmail.com', // list of receivers
@@ -44,7 +43,7 @@ function handleMail(req, res, next){
             html: '<b>Hello world?</b>' // html body
         };
 
-    // send mail with defined transport object
+        // send mail with defined transport object
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
                 console.log("oeps");
@@ -58,6 +57,10 @@ function handleMail(req, res, next){
 // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
         });
     });
+    };
+    // Generate test SMTP service account from ethereal.email
+    // Only needed if you don't have a real mail account for testing
+
     res.send('hello from mailer');
     next();
 }
@@ -67,7 +70,7 @@ server.get('/hello/:name', respondHello);
 server.head('/hello/:name', respondHello);
 
 
-server.get('/mail/:name', handleMail);
+server.post('/mail', handleMail);
 
 server.listen(8080, function() {
     console.log('%s listening at %s', server.name, server.url);

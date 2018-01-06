@@ -17,7 +17,7 @@ $(function() {
             var email = $("input#email").val();
             var phone = $("input#phone").val();
             var teamname = $("input#team-name").val();
-            var firstName = name; // For Success/Failure Message
+             // For Success/Failure Message
             // Check for white space in name for Success/Fail message
             //if (firstName.indexOf(' ') >= 0) {
               //  firstName = name.split(' ').slice(0, -1).join(' ');
@@ -25,11 +25,29 @@ $(function() {
 
 
             var data = firstname+splitter+name+splitter+email+splitter+phone+splitter+teamname;
+
+            data  = {
+                firstname : firstName,
+                name: name,
+                email:  email,
+                phone: phone,
+                teamname: teamname
+            }
+
             $("input#inschrijven").val = "uw aanvraag wordt verwerkt, even geduld.";
+
+           var server = window.location.origin;
+           if (server.indexOf(("localhost") > 0)){
+               server = "http://localhost:8080/"
+           }
+
+           server = server.concat("mail");
+            console.log(server);
+            console.log(data);
 
             $.ajax({
                 //url: "././mail/contact_me.php",
-                url:"http://www.dejackies.be/services/mailer",
+                url:server,
                 type: "POST",
                 crossDomain: true,
                 /*data: {
@@ -41,7 +59,6 @@ $(function() {
                 data:data,
                 cache: false,
                 success: function() {
-                    console.log("success");
                     // Success message
                     $('#success').html("<div class='alert alert-success'>");
                     $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
