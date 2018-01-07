@@ -17,6 +17,7 @@ $(function() {
             var email = $("input#email").val();
             var phone = $("input#phone").val();
             var teamname = $("input#team-name").val();
+            var type = $("select#type").val();
              // For Success/Failure Message
             // Check for white space in name for Success/Fail message
             //if (firstName.indexOf(' ') >= 0) {
@@ -31,8 +32,11 @@ $(function() {
                 name: name,
                 email:  email,
                 phone: phone,
-                teamname: teamname
+                teamname: teamname,
+                type: type
             }
+
+            console.log(data)
 
             $("input#inschrijven").val = "uw aanvraag wordt verwerkt, even geduld.";
 
