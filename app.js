@@ -16,7 +16,7 @@ function handleTest(req, res, next) {
 }
 
 function handleMail(req, res, next){
-    console.log(req.body.firstName);
+
     //if(req.headers.host != "localhost:8080") {
         nodemailer.createTestAccount((err, account) => {
 
@@ -32,6 +32,27 @@ function handleMail(req, res, next){
             }
         });*/
 
+            console.log(req.body.name);
+            var data = req.body;
+
+            var htmlMail = `
+                <p>Beste ${data.firstName},</p>
+                <p>We hebben uw inschrijving via onze website goed ontvangen, alvast bedankt voor uw deelname! 
+                Om zeker te zijn van een plaatsje op ons tornooi verzoeken wij u om 80 euro (incl. 20 euro waarborg) over te schrijven op
+                <strong>BE75 0688 9166 5251</strong>
+                met vermelding van uw ploegnaam. Pas dan is uw inschrijving officieel.</p>
+                <p>Verdere info over het tornooi volgt later (spelerslijst, speelschema, tornooireglement, ...) Hieronder nog eens de gegevens die wij van u ontvangen hebben:</p>
+                <ul>
+                <li>Voornaam: ${data.firstName}</li>
+                <li>Naam: ${data.name}</li>
+                <li>Email: ${data.email}</li>
+                <li>GSM: ${data.phone}</li>
+                <li>Ploeg: ${data.teamname}</li>
+                </ul>
+                <p>Met Vriendelijke Groeten,</p>
+                <p>De Jackies</p>
+            `;
+
         var transporter = nodemailer.createTransport({
             service: "hotmail",
             auth: {
@@ -43,11 +64,11 @@ function handleMail(req, res, next){
         // setup email data with unicode symbols
         let mailOptions = {
             from: "de_jackies@hotmail.com", // sender address
-            to: "holvoetwim@hotmail.com", // list of receivers
-            bcc: 'holvoetwim@hotmail.com,  dimitriverthe@hotmail.com',
+            to: data.email, // list of receivers
+            bcc: 'holvoetwim@hotmail.com',
             subject: 'Uw inschrijving voor de Jackies Cup 2018 ✔', // Subject line
             text: 'Hello world?', // plain text body
-            html: `<b>test</b>` // html body
+            html: htmlMail // html body
         };
 
         // send mail with defined transport object
