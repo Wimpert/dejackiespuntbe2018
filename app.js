@@ -67,7 +67,7 @@ function handleMail(req, res, next){
         let mailOptions = {
             from: "de_jackies@hotmail.com", // sender address
             to: data.email, // list of receivers
-            bcc: 'holvoetwim@hotmail.com, dimitriverthe@hotmail.com',
+            bcc: 'holvoetwim@hotmail.com, de_jackies@hotmail.com',
             subject: 'Uw inschrijving voor de Jackies Cup 2018 ✔', // Subject line
             text: 'Hello world?', // plain text body
             html: htmlMail // html body
