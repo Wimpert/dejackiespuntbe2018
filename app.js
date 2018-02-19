@@ -55,6 +55,24 @@ function handleMail(req, res, next){
                 <p>De Jackies</p>
             `;
 
+
+            var htmlFullMail = `
+                <p>Beste ${data.firstName},</p>
+                <p>Helaas moeten wij u meedelen dat ons tornooi voorlopig volzet is. Wij zullen u op een wachtlijst plaatsen en wanneer er afzeggingen zijn, bellen wij u op.</p>
+                <p>Hieronder nog eens de gegevens die wij van u ontvangen hebben:</p>
+                <ul>
+                <li>Voornaam: ${data.firstName}</li>
+                <li>Naam: ${data.name}</li>
+                <li>Email: ${data.email}</li>
+                <li>GSM: ${data.phone}</li>
+                <li>Ploeg: ${data.teamname}</li>
+                <li>Tornooi: ${data.type == "female" ? "vrouwen" : "mannen"}</li>
+                </ul>
+                <p>${data.type == "female" ? "Het vrouwen tornooi zal enkel doorgaan indien wij voldoende inschrijvingen ontvangen." : ""}</p>
+                <p>Met Vriendelijke Groeten,</p>
+                <p>De Jackies</p>
+            `;
+
         var transporter = nodemailer.createTransport({
             service: "hotmail",
             auth: {
@@ -70,7 +88,7 @@ function handleMail(req, res, next){
             bcc: 'holvoetwim@hotmail.com, de_jackies@hotmail.com',
             subject: 'Uw inschrijving voor de Jackies Cup 2018 ✔', // Subject line
             text: 'Hello world?', // plain text body
-            html: htmlMail // html body
+            html: htmlFullMail // html body
         };
 
         // send mail with defined transport object
