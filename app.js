@@ -73,6 +73,10 @@ function handleMail(req, res, next){
                 <p>De Jackies</p>
             `;
 
+            if(data.type == "female"){
+                htmlFullMail = htmlMail;
+            }
+
         var transporter = nodemailer.createTransport({
             service: "hotmail",
             auth: {
