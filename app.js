@@ -2,8 +2,8 @@ const restify = require('restify');
 const nodemailer = require('nodemailer');
 
 const limits = {
-    M:1,
-    F:2
+    M:32,
+    F:8
 }
 
 var mysql      = require('mysql');
@@ -28,8 +28,8 @@ function respondHello(req, res, next) {
 
 
 function insertParticipant(req, res, next){
-    console.log(req.full);
-    connection.query('INSERT INTO `subscriptions`.`subscriptions`(`team_name`,`first_name`,`last_name`,`email`,`league`,`date`,`phone_number`)VALUES(?,?,?,?,?,?,?);', [req.body.teamname,req.body.firstName,req.body.name,req.body.email,req.body.type, new Date(), req.body.phone], function (error, results, fields) {
+    const backup = req.full ? 'Y' : 'N';
+    connection.query('INSERT INTO `subscriptions`.`subscriptions`(`team_name`,`first_name`,`last_name`,`email`,`league`,`date`,`phone_number`,`backup`)VALUES(?,?,?,?,?,?,?,?);', [req.body.teamname,req.body.firstName,req.body.name,req.body.email,req.body.type, new Date(), req.body.phone,backup], function (error, results, fields) {
         // error will be an Error if one occurred during the query
         // results will contain the results of the query
         // fields will contain information about the returned results fields (if any)
@@ -39,8 +39,8 @@ function insertParticipant(req, res, next){
             res.send(error);
         }
         if(results){
-            res.send('ok');
-            //next();
+            //res.send('ok');
+            next();
         }
 
       });
@@ -54,7 +54,6 @@ function countParicipants(req, res, next) {
             res.send(error);
         }
         if(results){
-            console.log(results);
             req.full = results[0].number_of_supscriptions >= limits[req.body.type];
             next();
         }
@@ -62,11 +61,7 @@ function countParicipants(req, res, next) {
 }
 
 
-function handleTest(req, res, next) {
-     next();
-}
-
-function sendMail(req, res, next, full){
+function sendMail(req, res, next){
 
     //if(req.headers.host != "localhost:8080") {
         nodemailer.createTestAccount((err, account) => {
@@ -84,7 +79,6 @@ function sendMail(req, res, next, full){
         });*/
 
             var data = req.body;
-            console.log(data);
 
             var htmlMail = `
                 <p>Beste ${data.firstName},</p>
@@ -123,10 +117,10 @@ function sendMail(req, res, next, full){
                 <p>Met Vriendelijke Groeten,</p>
                 <p>De Jackies</p>
             `;
-
-            if(data.type == "female"){
-                htmlFullMail = htmlMail;
-            }
+                let mail = htmlMail;
+              if(req.full){
+                mail = htmlFullMail;
+              }
 
         var transporter = nodemailer.createTransport({
             service: "hotmail",
@@ -142,25 +136,18 @@ function sendMail(req, res, next, full){
             to: data.email, // list of receivers
             bcc: 'holvoetwim@hotmail.com, de_jackies@hotmail.com',
             subject: 'Uw inschrijving voor de Jackies Cup 2019 ✔', // Subject line// plain text body
-            html: htmlMail // html body
+            html: mail // html body
         };
 
-        //it is full: 
-        if(full) {
-            mailOptions.html = htmlFullMail;
-        }
 
         // send mail with defined transport object
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-                console.log("oeps");
+                console.log("oeps", error);
+                res.send(500);
             } else {
                 res.send('mail send');
-                next();
             }
-            console.log('Message sent: %s', info.messageId);
-            console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-
 // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@blurdybloop.com>
 // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
         });
@@ -194,7 +181,6 @@ function getTeams(req, res, next){
 var server = restify.createServer();
 
 server.use((req, res, next) => {
-    console.log(req.getPath());
     return next();
 });
 
@@ -213,9 +199,8 @@ server.post('/hello/:name', respondHello);
 server.head('/hello/:name', respondHello);
 
 
-server.post('/mail', sendMail);
 server.get('/teams', getTeams);
-server.post('/test', [handleTest, countParicipants, insertParticipant]);
+server.post('/subscribe', [countParicipants, insertParticipant, sendMail]);
 
 server.get('/', restify.plugins.serveStatic({
     directory: './',

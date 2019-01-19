@@ -45,7 +45,7 @@ $(function() {
             if (server.indexOf("localhost") > 0){
                server = "http://localhost:8080"
            }
-           server = server.concat("/mail");
+           server = server.concat("/subscribe");
 
             console.log(server);
 
