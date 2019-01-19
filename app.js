@@ -174,7 +174,6 @@ function sendMail(req, res, next, full){
 
 
 function getTeams(req, res, next){
-    console.log('getting teams');    
     connection.query('select * from `subscriptions`.`subscriptions` where subscriptions.backup = ?',['N'], function (error, results, fields) {
         if(error){
             console.log(error);
@@ -210,18 +209,23 @@ server.use(
     restify.plugins.bodyParser()
 );
 
-server.get('/', restify.plugins.serveStatic({
-    directory: './',
-    default: 'index.html'
-}));
-
 server.post('/hello/:name', respondHello);
 server.head('/hello/:name', respondHello);
 
 
 server.post('/mail', sendMail);
-server.get('/team', getTeams);
+server.get('/teams', getTeams);
 server.post('/test', [handleTest, countParicipants, insertParticipant]);
+
+server.get('/', restify.plugins.serveStatic({
+    directory: './',
+    default: 'index.html'
+}));
+
+server.get('/.*/', restify.plugins.serveStatic({
+    directory: './',
+    default: 'index.html'
+}));
 
 server.listen(8080, function() {
     console.log('%s listening at %s', server.name, server.url);
