@@ -83,7 +83,7 @@ function sendMail(req, res, next){
             var htmlMail = `
                 <p>Beste ${data.firstName},</p>
                 <p>We hebben uw inschrijving via onze website goed ontvangen, alvast bedankt voor uw deelname! 
-                Om zeker te zijn van een plaatsje op ons tornooi verzoeken wij u om ${data.type == "female" ? 70 : 100} euro (incl. 20 euro waarborg) over te schrijven op
+                Om zeker te zijn van een plaatsje op ons tornooi verzoeken wij u om ${data.type == "F" ? 70 : 100} euro (incl. 20 euro waarborg) over te schrijven op
                 <strong>BE75 0688 9166 5251</strong>
                 met vermelding van uw ploegnaam. Pas dan is uw inschrijving officieel.</p>
                 <p>Verdere info over het tornooi volgt later (spelerslijst, speelschema, tornooireglement, ...) Hieronder nog eens de gegevens die wij van u ontvangen hebben:</p>
@@ -93,9 +93,9 @@ function sendMail(req, res, next){
                 <li>Email: ${data.email}</li>
                 <li>GSM: ${data.phone}</li>
                 <li>Ploeg: ${data.teamname}</li>
-                <li>Tornooi: ${data.type == "female" ? "vrouwen" : "mannen"}</li>
+                <li>Tornooi: ${data.type == "F" ? "vrouwen" : "mannen"}</li>
                 </ul>
-                <p>${data.type == "female" ? "Het vrouwen tornooi zal enkel doorgaan indien wij voldoende inschrijvingen ontvangen." : ""}</p>
+                <p>${data.type == "F" ? "Het vrouwen tornooi zal enkel doorgaan indien wij voldoende inschrijvingen ontvangen." : ""}</p>
                 <p>Met Vriendelijke Groeten,</p>
                 <p>De Jackies</p>
             `;
@@ -111,9 +111,9 @@ function sendMail(req, res, next){
                 <li>Email: ${data.email}</li>
                 <li>GSM: ${data.phone}</li>
                 <li>Ploeg: ${data.teamname}</li>
-                <li>Tornooi: ${data.type == "female" ? "vrouwen" : "mannen"}</li>
+                <li>Tornooi: ${data.type == "F" ? "vrouwen" : "mannen"}</li>
                 </ul>
-                <p>${data.type == "female" ? "Het vrouwen tornooi zal enkel doorgaan indien wij voldoende inschrijvingen ontvangen." : ""}</p>
+                <p>${data.type == "F" ? "Het vrouwen tornooi zal enkel doorgaan indien wij voldoende inschrijvingen ontvangen." : ""}</p>
                 <p>Met Vriendelijke Groeten,</p>
                 <p>De Jackies</p>
             `;
