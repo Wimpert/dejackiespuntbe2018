@@ -213,7 +213,7 @@ server.get('/.*/', restify.plugins.serveStatic({
 }));
 
 server.get('/tornooi', restify.plugins.serveStatic({
-    directory: './',
+    directory: './tornooi/dist',
     default: '/dist/index.html'
 }));
 
