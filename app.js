@@ -212,6 +212,11 @@ server.get('/.*/', restify.plugins.serveStatic({
     default: 'index.html'
 }));
 
+server.get('/tornooi/', restify.plugins.serveStatic({
+    directory: './tornooi/',
+    default: 'index.html'
+}));
+
 server.listen(8080, function() {
     console.log('%s listening at %s', server.name, server.url);
 });
