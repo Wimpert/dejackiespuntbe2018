@@ -1,3 +1,7 @@
+body{
+    display: flex;
+}
+
 .center-container{
     justify-content:center;
     align-items: center;
