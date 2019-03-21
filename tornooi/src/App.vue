@@ -3,7 +3,7 @@
   <router-view id="content"></router-view>
     <md-bottom-bar id="bottom-bar" md-sync-route md-type="fixed">
       <md-bottom-bar-item to="/" md-label="Tornooi" md-icon="home"></md-bottom-bar-item>
-      <md-bottom-bar-item to="/my-team" md-label="Mijn Ploeg" md-icon="favorite"></md-bottom-bar-item>
+      <md-bottom-bar-item :to="teamLink" md-label="Mijn Ploeg" md-icon="favorite"></md-bottom-bar-item>
       <md-bottom-bar-item to="/bar" md-label="Alle Matchen" md-icon="access_time"></md-bottom-bar-item>
     </md-bottom-bar>
   </div>
@@ -13,7 +13,14 @@
 
 export default {
   name: 'app',
-  components: {}
+  data: function (){ 
+    return {
+    get teamLink(){
+      return `/team${window.localStorage.getItem(process.env.VUE_APP_LOCALSTORAGE_TEAM_ID_KEY_NAME)?'/'+window.localStorage.getItem(process.env.VUE_APP_LOCALSTORAGE_TEAM_ID_KEY_NAME):''}`
+    } 
+  }
+    
+  }
 }
 </script>
 

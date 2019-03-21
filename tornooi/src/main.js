@@ -3,6 +3,7 @@ import Vue from 'vue'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
+import './assets/style.css'
 
 import App from './App.vue'
 import VueRouter from 'vue-router'
@@ -11,6 +12,7 @@ import VueRouter from 'vue-router'
 import Overview from './components/Overview.vue'
 import MyTeam from './components/MyTeam.vue'
 import MyTeamPicker from './components/MyTeamPicker.vue'
+import Group from './components/Group.vue'
 
 import dotenv from 'dotenv'
 dotenv.config()
@@ -26,10 +28,10 @@ Vue.use(VueRouter);
 const routes = [
   { path: '/', component: Overview },
   { path: '/overview', component: Overview },
-  { path: '/my-team', component: MyTeamPicker },
-  { path: '/my-team/:id', component: MyTeam },
+  { path: '/team', component: MyTeamPicker },
+  { path: '/team/:id', component: MyTeam },
+  { path: '/group/:id', component: Group, name: "group" },
   { path:'*', redirect: '/'}
-
 ]
 
 const router = new VueRouter({

@@ -20,7 +20,8 @@ export default Vue.extend({
     methods:{
         okClicked(){
             if(this.chosenTeamId){
-                this.$router.push({ path: `/my-team/${this.chosenTeamId}` }) 
+                window.localStorage.setItem(process.env.VUE_APP_LOCALSTORAGE_TEAM_ID_KEY_NAME , this.chosenTeamId);
+                this.$router.push({ path: `/team/${this.chosenTeamId}` }) 
             }
         }
     }
