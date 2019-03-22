@@ -28,7 +28,7 @@ export default Vue.extend({
                 {{match.hour.toString().padStart(2,'0')}}:{{match.minutes.toString().padStart(2,'0')}}
             </div>
             <div class="match-team-name-container">
-                {{match.homeTeam.name}}
+                <router-link :to="{ name: 'team', params: { id: match.homeTeam.id }}">{{match.homeTeam.name}}</router-link>
             </div>
             <div>
                 {{homeTeamScore}} {{homeTeamPenaltyScore}}
@@ -39,7 +39,7 @@ export default Vue.extend({
                 Terrein {{match.terrain}}
             </div>
             <div class="match-team-name-container">
-                {{match.outTeam.name}}
+                <router-link :to="{ name: 'team', params: { id: match.outTeam.id }}">{{match.outTeam.name}}</router-link>
             </div>
             <div>
              {{outTeamScore}} {{outTeamPenaltyScore}}

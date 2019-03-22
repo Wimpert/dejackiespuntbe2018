@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-  <router-view id="content"></router-view>
+    <router-view :key="$route.fullPath" id="content"></router-view>
     <md-bottom-bar id="bottom-bar" md-sync-route md-type="fixed">
       <md-bottom-bar-item to="/" md-label="Tornooi" md-icon="home"></md-bottom-bar-item>
       <md-bottom-bar-item :to="teamLink" md-label="Mijn Ploeg" md-icon="favorite"></md-bottom-bar-item>
@@ -37,6 +37,12 @@ export default {
 }
 #content{
   flex-grow: 1;
+}
+#bottom-bar{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 #bottom-bar > div{
   justify-content: center;

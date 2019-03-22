@@ -10,7 +10,7 @@ import VueRouter from 'vue-router'
 
 
 import Overview from './components/Overview.vue'
-import MyTeam from './components/MyTeam.vue'
+import Team from './components/Team.vue'
 import MyTeamPicker from './components/MyTeamPicker.vue'
 import Group from './components/Group.vue'
 
@@ -29,7 +29,7 @@ const routes = [
   { path: '/', component: Overview },
   { path: '/overview', component: Overview },
   { path: '/team', component: MyTeamPicker },
-  { path: '/team/:id', component: MyTeam },
+  { path: '/team/:id', name:'team', component: Team },
   { path: '/group/:id', component: Group, name: "group" },
   { path:'*', redirect: '/'}
 ]

@@ -1,13 +1,13 @@
 vue.<script lang="ts">
 import Vue from 'vue'
 import axios from 'axios'
-import Match from './Match.vue'
+import MatchList from './MatchList.vue'
 
 
 export default Vue.extend({
-    name: 'my-team',
+    name: 'team',
     components:{
-        Match
+        MatchList
     },
     data () {
         return {
@@ -16,6 +16,12 @@ export default Vue.extend({
             }
     },
     computed: {
+        selectedTeam: function() {
+            if(!this.$route || !this.$route.params || !this.$route.params.id){
+                    return false;
+                }
+            return window.localStorage.getItem(process.env.VUE_APP_LOCALSTORAGE_TEAM_ID_KEY_NAME).toString() === this.$route.params.id.toString();
+        },
         matchIDs:   function () {
             let returnVal = [];
             if(this.teamData){
@@ -37,17 +43,15 @@ export default Vue.extend({
         },
         unPlayedMatches: function(){
             return this.matches.filter((match) => 
-             (match.outTeamScore !== undefined  ||  match.outTeamScore !== null)
-            ||
-            (match.homeTeamScore !== undefined ||  match.homeTeamScore !== null)
+                match.outTeamScore === undefined  ||  match.outTeamScore === null
+                    ||
+                match.homeTeamScore === undefined ||  match.homeTeamScore === null
             );
         }
     },
     mounted () {
-    // fetch the data when the view is created and the data is
-    // already being observed
       axios
-            .get(`${process.env.VUE_APP_API_BASE_URL}/teaminfo/${this.$route.params.id}`,
+      .get(`${process.env.VUE_APP_API_BASE_URL}/teaminfo/${this.$route.params.id}`,
                 {withCredentials:true}
             )
             .then(response => 
@@ -66,8 +70,7 @@ export default Vue.extend({
                     response => {
                         this.matches = response.data
                     }
-                );
-            
+                ); 
        }
     },
     methods: {
@@ -80,8 +83,8 @@ export default Vue.extend({
 </script>
 <template>
 <div>
-    <md-button class="md-icon-button" v-on:click="changeTeamClicked()">
-        <md-icon>loop</md-icon>
+    <md-button v-if="selectedTeam" class="md-icon-button" v-on:click="changeTeamClicked()">
+        <md-icon>swap_horiz</md-icon>
     </md-button>
     <div>{{teamData.name}}</div>
     <div v-if="teamData.group">
@@ -91,13 +94,9 @@ export default Vue.extend({
     </div>
     <div>Some Stats</div>
     <h5>Volgende Matchen:</h5>
-    <div  v-for="(unPlayedMatch) in unPlayedMatches" :key="unPlayedMatch.id">
-        <match v-bind:match="unPlayedMatch"></match>
-    </div>
+    <match-list v-bind:matches="unPlayedMatches"></match-list>
     <h6>Voorbije Matchen:</h6>
-    <div  v-for="(playedMatch) in playedMatches" :key="playedMatch.id">
-        <match v-bind:match="playedMatch"></match>
-    </div>
+    <match-list v-bind:matches="playedMatches"></match-list>
 </div>
   
 
