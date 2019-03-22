@@ -34,9 +34,12 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
+  overflow: scroll;
+  margin-bottom: 56px;
 }
 #content{
   flex-grow: 1;
+  width: 100%;
 }
 #bottom-bar{
   position: fixed;

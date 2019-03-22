@@ -48,21 +48,26 @@ td{
 }
 #table-container{
     margin: 4px;
+    width: 100%;
 }
 table{
     width: 100%;
 }
 .number-container{
-    width: 2em;
-    text-align: end;
+    min-width: 1,5em;
+    text-align: center;
 }
 .text-container{
     text-overflow: ellipsis;
     overflow: hidden; 
     white-space: nowrap;
+    max-width: 80px;
+}
+th:first-of-type{
+    text-align: start;
 }
 th{
-    text-align: end;
+    text-align: center;
 }
 </style>
 
