@@ -32,7 +32,7 @@ export default Vue.extend({
 </script>
 <template>
 <div class="center-container">
-    <div v-if="err">err</div>
+    <div v-if="err">{{err}}</div>
     <h3>Kies je ploeg:</h3>
     <md-field>
      <md-select v-if="allTeams" name="my-team" v-model="chosenTeamId">
