@@ -6,16 +6,19 @@ export default Vue.extend({
     data(){
         return {
             allTeams:[],
-            chosenTeamId: undefined
+            chosenTeamId: undefined,
+            err: undefined
             };
     },
-    mounted(){
+    created(){
         axios
         .get(`${process.env.VUE_APP_API_BASE_URL}/all/teams`,
                 {withCredentials:true}
         ).then(
             (response) => this.allTeams = response.data
-        )
+        ).catch(
+            (err) => this.err = err
+        );
     },
     methods:{
         okClicked(){
@@ -29,9 +32,10 @@ export default Vue.extend({
 </script>
 <template>
 <div class="center-container">
+    <div v-if="err">err</div>
     <h3>Kies je ploeg:</h3>
     <md-field>
-     <md-select name="my-team" v-model="chosenTeamId">
+     <md-select v-if="allTeams" name="my-team" v-model="chosenTeamId">
             <md-option v-for="(team) in allTeams" :key="team.id" :value="team.id">
                  {{ team.name }}
             </md-option>
