@@ -97,7 +97,7 @@ export default Vue.extend({
         </div>
         <div class="row header-button-bar">
             <div v-if="teamData.group" class="header-button">
-                <router-link :to="{ name: 'group', params: { id: teamData.group.id }}">
+                <router-link :to="{ name: 'group', params: { id: teamData.group.id }}" class="jackies-router">
                 <div>
                 <md-icon>list</md-icon>  Group {{teamData.group.name}}
                 </div> 
@@ -147,12 +147,12 @@ export default Vue.extend({
         display: flex;
         align-items: center;
         flex-grow: 1;
-        align-items: center;
         flex-basis: 100%;
+        justify-content: center;
     }
 
-    .header a{
-        color: darkslategray;
+    .header .jackies-router{
+        color: darkslategray !important;
     }
 
 </style>

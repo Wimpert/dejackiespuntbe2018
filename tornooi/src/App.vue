@@ -46,6 +46,9 @@ export default {
   left: 0;
   bottom: 0;
   width: 100%;
+  background: lightblue;
+  border-top: 1px solid darkslategray;
+  z-index: 200;
 }
 #bottom-bar > div{
   justify-content: center;

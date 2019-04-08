@@ -21,7 +21,6 @@ export default Vue.extend({
             )
             .then(response => 
                 {
-                    console.log(response.data);
                     this.group = response.data
                 }
                 )
@@ -31,7 +30,9 @@ export default Vue.extend({
 </script>
 <template>
 <div v-if="group && group.teams">
-    <div>Group {{group.name}}:</div>
+    <div class="header">
+        <div>Group {{group.name}}:</div>
+    </div>
     <group-rank v-bind:teams="group.teams"></group-rank>
     <match-list v-bind:matches="group.matches"></match-list>
 </div>
