@@ -82,20 +82,36 @@ export default Vue.extend({
 })
 </script>
 <template>
-<div class="team-container">
-    <md-card class="team-data">
-        <md-button v-if="selectedTeam" class="md-icon-button" v-on:click="changeTeamClicked()">
-        <md-icon>swap_horiz</md-icon>
-        </md-button>
-        <div>{{teamData.name}}</div>
-        <div v-if="teamData.group">
-        <router-link :to="{ name: 'group', params: { id: teamData.group.id }}">
-            Group: {{teamData.group.name}}
-        </router-link>
+<div class="team-container team-data">
+    <div class="header">
+        <div class="row">
+            <div class="team-name-container">Team: {{teamData.name}}</div>
+            <div>
+            <md-button v-if="selectedTeam" class="md-icon-button md-dense" v-on:click="changeTeamClicked()">
+                <md-icon>swap_horiz</md-icon>
+            </md-button>
+           <md-button class="md-icon-button md-dense">
+                <md-icon>cached</md-icon>
+            </md-button>
+            </div>  
         </div>
-        <div></div>
-    </md-card>
-    
+        <div class="row header-button-bar">
+            <div v-if="teamData.group" class="header-button">
+                <router-link :to="{ name: 'group', params: { id: teamData.group.id }}">
+                <div>
+                <md-icon>list</md-icon>  Group {{teamData.group.name}}
+                </div> 
+                </router-link>
+            </div>
+            <div class="header-button">
+                <md-icon>timer</md-icon> Matchen
+            </div>
+            <div class="header-button">
+                <md-icon>equalizer</md-icon> Statistieken
+            </div>
+        </div>
+       
+    </div>
     <h5>Volgende Matchen:</h5>
     <match-list v-bind:matches="unPlayedMatches"></match-list>
     <h6>Voorbije Matchen:</h6>
@@ -105,7 +121,38 @@ export default Vue.extend({
 <style>
 
     .team-data{
-        margin: 3px;
+        display: flex;
+        flex-direction: column;
+    }
+    .header{
+        display: flex;
+        flex-direction: column;
+    }
+    .row{
+        display: flex;
+        flex-direction: row;
+        align-items: center
+    }
+    .team-name-container{
+        flex-grow: 1;
+        text-align: start;
+        font-size: 1.1em;
+    }
+
+    .header-button-bar{
+        flex-grow: 1;
+        align-items: flex-end;
+    }
+    .header-button{
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        align-items: center;
+        flex-basis: 100%;
+    }
+
+    .header a{
+        color: darkslategray;
     }
 
 </style>

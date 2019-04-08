@@ -53,6 +53,7 @@ export default Vue.extend({
     flex-direction: column;
     padding: 5px;
     margin: 6px 3px;
+    width: 100%;
 }
 .match-container > div{
     display: flex;
