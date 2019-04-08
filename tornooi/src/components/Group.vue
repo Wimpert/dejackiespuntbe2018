@@ -17,7 +17,7 @@ export default Vue.extend({
     mounted(){
         axios
             .get(`${process.env.VUE_APP_API_BASE_URL}/group/${this.$route.params.id}`,
-                {withCredentials:true}
+                {withCredentials:false}
             )
             .then(response => 
                 {

@@ -52,7 +52,7 @@ export default Vue.extend({
     mounted () {
       axios
       .get(`${process.env.VUE_APP_API_BASE_URL}/teaminfo/${this.$route.params.id}`,
-                {withCredentials:true}
+                {withCredentials:false}
             )
             .then(response => 
                 {
@@ -65,7 +65,7 @@ export default Vue.extend({
            const idsAsString = this.matchIDs.reduce((acc,match) =>  acc+match.id+',','');
              axios
             .get(`${process.env.VUE_APP_API_BASE_URL}/match?ids=${idsAsString}`,
-                {withCredentials:true})
+                {withCredentials:false})
             .then(
                     response => {
                         this.matches = response.data

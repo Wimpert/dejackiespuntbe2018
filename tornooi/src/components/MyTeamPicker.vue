@@ -13,7 +13,7 @@ export default Vue.extend({
     created(){
         axios
         .get(`${process.env.VUE_APP_API_BASE_URL}/all/teams`,
-                {withCredentials:true}
+                {withCredentials:false}
         ).then(
             (response) => this.allTeams = response.data
         ).catch(
