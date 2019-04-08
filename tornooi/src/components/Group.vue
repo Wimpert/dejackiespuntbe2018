@@ -21,6 +21,7 @@ export default Vue.extend({
             )
             .then(response => 
                 {
+                    console.log(response.data);
                     this.group = response.data
                 }
                 )

@@ -82,23 +82,32 @@ export default Vue.extend({
 })
 </script>
 <template>
-<div>
-    <md-button v-if="selectedTeam" class="md-icon-button" v-on:click="changeTeamClicked()">
+<div class="team-container">
+    <md-card class="team-data">
+        <md-button v-if="selectedTeam" class="md-icon-button" v-on:click="changeTeamClicked()">
         <md-icon>swap_horiz</md-icon>
-    </md-button>
-    <div>{{teamData.name}}</div>
-    <div v-if="teamData.group">
+        </md-button>
+        <div>{{teamData.name}}</div>
+        <div v-if="teamData.group">
         <router-link :to="{ name: 'group', params: { id: teamData.group.id }}">
             Group: {{teamData.group.name}}
         </router-link>
-    </div>
-    <div>Some Stats</div>
+        </div>
+        <div></div>
+    </md-card>
+    
     <h5>Volgende Matchen:</h5>
     <match-list v-bind:matches="unPlayedMatches"></match-list>
     <h6>Voorbije Matchen:</h6>
     <match-list v-bind:matches="playedMatches"></match-list>
 </div>
-  
-
 </template>
+<style>
+
+    .team-data{
+        margin: 3px;
+    }
+
+</style>
+
 

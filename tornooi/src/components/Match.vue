@@ -22,7 +22,7 @@ export default Vue.extend({
 })
 </script>
 <template>
-    <div class="match-container">
+    <md-card class="match-container">
         <div>
             <div>
                 {{match.hour.toString().padStart(2,'0')}}:{{match.minutes.toString().padStart(2,'0')}}  T{{match.terrain}} 
@@ -45,13 +45,14 @@ export default Vue.extend({
              {{outTeamScore}} {{outTeamPenaltyScore}}
             </div>
         </div>
-    </div>
+    </md-card>
 </template>
 <style>
 .match-container{
     display: flex;
     flex-direction: column;
     padding: 5px;
+    margin: 6px 3px;
 }
 .match-container > div{
     display: flex;
@@ -75,8 +76,8 @@ export default Vue.extend({
 }
 
 .match-container > div > div:last-of-type{
-    width: 20%;
-    text-align: end;
+    width: 2.7em;
+    text-align: start;
     border-right: none;
 }
 </style>
