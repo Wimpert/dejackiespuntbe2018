@@ -24,7 +24,11 @@ export default {
   watch:{
     $route: function(){
       if(this.$route.name){
-        this.activeRoute = this.$route.name
+        this.activeRoute = this.$route.name;
+        const teamId = this.$route.params.id ? this.$route.params.id.toString() : '-99';
+        if(this.activeRoute === 'team' && teamId !== window.localStorage.getItem(process.env.VUE_APP_LOCALSTORAGE_TEAM_ID_KEY_NAME) ){
+          this.activeRoute = undefined
+        }
       } else {
         this.activeRoute = undefined;
       }
