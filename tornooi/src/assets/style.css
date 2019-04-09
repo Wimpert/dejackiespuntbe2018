@@ -12,9 +12,31 @@ body{
 .header{
     background: lightblue;
     color: darkslategray;
-    height: 20%;
+    height: 15vh;
     max-height: 130px;
-    padding: 10px;
     border-bottom: 1px solid darkslategrey;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-grow:1;
+}
+
+.header-button{
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    flex-basis: 100%;
+    justify-content: center;
+}
+
+.header-button > .md-icon{
+    margin: 0px;
+}
+
+.jackies-tab{
+    background: transparent;
 }
 

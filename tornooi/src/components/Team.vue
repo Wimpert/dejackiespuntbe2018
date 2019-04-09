@@ -85,36 +85,35 @@ export default Vue.extend({
 <div class="team-container team-data">
     <div class="header">
         <div class="row">
-            <div class="team-name-container">Team: {{teamData.name}}</div>
-            <div>
-            <md-button v-if="selectedTeam" class="md-icon-button md-dense" v-on:click="changeTeamClicked()">
-                <md-icon>swap_horiz</md-icon>
-            </md-button>
-           <md-button class="md-icon-button md-dense">
-                <md-icon>cached</md-icon>
-            </md-button>
-            </div>  
-        </div>
-        <div class="row header-button-bar">
-            <div v-if="teamData.group" class="header-button">
+            <div class="header-button">
+                <md-button v-if="selectedTeam" class="md-icon-button md-dense" v-on:click="changeTeamClicked()">
+                    <md-icon>keyboard_arrow_left</md-icon>
+                </md-button>
+                {{teamData.name}}
+            </div>
+            <div class="header-button" v-if="teamData && teamData.group">
                 <router-link :to="{ name: 'group', params: { id: teamData.group.id }}" class="jackies-router">
                 <div>
-                <md-icon>list</md-icon>  Group {{teamData.group.name}}
+                <md-icon>list</md-icon>  Group {{teamData.group.name}} <md-icon>keyboard_arrow_right</md-icon>
                 </div> 
                 </router-link>
             </div>
+        </div>
+        <div class="row">
             <div class="header-button">
-                <md-icon>timer</md-icon> Matchen
+                <md-icon>timer</md-icon>
+                <span>Matchen</span>  
             </div>
             <div class="header-button">
-                <md-icon>equalizer</md-icon> Statistieken
-            </div>
+                <md-icon>equalizer</md-icon>
+                <span>Statistieken</span>
+            </div> 
         </div>
        
     </div>
-    <h5>Volgende Matchen:</h5>
+    <div>Volgende Matchen:</div>
     <match-list v-bind:matches="unPlayedMatches"></match-list>
-    <h6>Voorbije Matchen:</h6>
+    <div>Voorbije Matchen:</div>
     <match-list v-bind:matches="playedMatches"></match-list>
 </div>
 </template>
@@ -128,29 +127,13 @@ export default Vue.extend({
         display: flex;
         flex-direction: column;
     }
-    .row{
-        display: flex;
-        flex-direction: row;
-        align-items: center
-    }
+    
     .team-name-container{
         flex-grow: 1;
         text-align: start;
         font-size: 1.1em;
     }
-
-    .header-button-bar{
-        flex-grow: 1;
-        align-items: flex-end;
-    }
-    .header-button{
-        display: flex;
-        align-items: center;
-        flex-grow: 1;
-        flex-basis: 100%;
-        justify-content: center;
-    }
-
+    
     .header .jackies-router{
         color: darkslategray !important;
     }

@@ -30,7 +30,7 @@ const routes = [
   { path: '/overview', component: Overview },
   { path: '/team', component: MyTeamPicker },
   { path: '/team/:id', name:'team', component: Team },
-  { path: '/group/:id', component: Group, name: "group" },
+  { path: '/group/:id?', component: Group, name: "group" },
   { path:'*', redirect: '/'}
 ]
 

@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <router-view :key="$route.fullPath" id="content"></router-view>
-    <md-bottom-bar id="bottom-bar" md-sync-route md-type="fixed">
-      <md-bottom-bar-item to="/" md-label="Tornooi" md-icon="home"></md-bottom-bar-item>
-      <md-bottom-bar-item :to="teamLink" md-label="Mijn Ploeg" md-icon="favorite"></md-bottom-bar-item>
-      <md-bottom-bar-item to="/bar" md-label="Alle Matchen" md-icon="access_time"></md-bottom-bar-item>
+    <md-bottom-bar id="bottom-bar" :md-active-item="activeRoute" md-type="fixed">
+      <md-bottom-bar-item id="team" :to="teamLink" md-label="Mijn Ploeg" md-icon="favorite"></md-bottom-bar-item>
+      <md-bottom-bar-item id="group" :to="{path:'/group'}" md-label="Groupen" md-icon="list"></md-bottom-bar-item>
+      <md-bottom-bar-item id="round" to="/round" md-label="Rondes" md-icon="access_time"></md-bottom-bar-item>
     </md-bottom-bar>
   </div>
 </template>
@@ -17,9 +17,18 @@ export default {
     return {
     get teamLink(){
       return `/team${window.localStorage.getItem(process.env.VUE_APP_LOCALSTORAGE_TEAM_ID_KEY_NAME)?'/'+window.localStorage.getItem(process.env.VUE_APP_LOCALSTORAGE_TEAM_ID_KEY_NAME):''}`
-    } 
-  }
-    
+    },
+    activeRoute:undefined
+  }  
+  },
+  watch:{
+    $route: function(){
+      if(this.$route.name){
+        this.activeRoute = this.$route.name
+      } else {
+        this.activeRoute = undefined;
+      }
+    }
   }
 }
 </script>
@@ -34,7 +43,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-  overflow: scroll;
+  overflow: auto;
   margin-bottom: 56px;
 }
 #content{
@@ -50,6 +59,15 @@ export default {
   border-top: 1px solid darkslategray;
   z-index: 200;
 }
+
+.md-bottom-bar.md-theme-default.md-type-fixed .md-bottom-bar-item.md-active .md-icon{
+  color: white;
+}
+
+.md-bottom-bar.md-type-fixed .md-bottom-bar-item.md-active .md-bottom-bar-label{
+  color: white;
+}
+
 #bottom-bar > div{
   justify-content: center;
 }
