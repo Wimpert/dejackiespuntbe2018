@@ -43,7 +43,7 @@ body{
     margin: 10px;
 }
 
-.header-button.active > .md-icon{
+.header-button.active  .md-icon{
     color: white;
 }
 .jackies-tab{

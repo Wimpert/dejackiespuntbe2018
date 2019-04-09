@@ -86,7 +86,7 @@ export default Vue.extend({
 <div class="team-container team-data">
     <div class="header">
         <div class="row">
-            <div class="header-button">
+            <div class="header-button active">
                 <md-button v-if="selectedTeam" class="md-icon-button md-dense" v-on:click="changeTeamClicked()">
                     <md-icon>keyboard_arrow_left</md-icon>
                 </md-button>
