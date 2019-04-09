@@ -31,7 +31,7 @@ const routes = [
   { path: '/team', component: MyTeamPicker },
   { path: '/team/:id', name:'team', component: Team },
   { path: '/group/:id?', component: Group, name: "group" },
-  { path:'*', redirect: '/'}
+  { path:'*', redirect: `/team${window.localStorage.getItem(process.env.VUE_APP_LOCALSTORAGE_TEAM_ID_KEY_NAME)?'/'+window.localStorage.getItem(process.env.VUE_APP_LOCALSTORAGE_TEAM_ID_KEY_NAME):''}`}
 ]
 
 const router = new VueRouter({
