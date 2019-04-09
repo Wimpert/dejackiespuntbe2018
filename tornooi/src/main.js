@@ -26,8 +26,6 @@ Vue.use(VueRouter);
 
 
 const routes = [
-  { path: '/', component: Overview },
-  { path: '/overview', component: Overview },
   { path: '/team', component: MyTeamPicker },
   { path: '/team/:id', name:'team', component: Team },
   { path: '/group/:id?', component: Group, name: "group" },
