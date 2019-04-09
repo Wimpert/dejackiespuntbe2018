@@ -10,12 +10,12 @@ body{
 
 
 .header{
-    background: lightblue;
-    color: darkslategray;
+    background: #52796F;
     height: 15vh;
     max-height: 130px;
-    border-bottom: 1px solid darkslategrey;
+    border-bottom: 0px solid darkslategrey;
 }
+
 
 .row{
     display: flex;
@@ -30,13 +30,26 @@ body{
     flex-grow: 1;
     flex-basis: 100%;
     justify-content: center;
+    height: 100%
+}
+
+.active{
+    color: white;
+    font-weight: bold;
+    border-bottom: 2px solid white;  
 }
 
 .header-button > .md-icon{
-    margin: 0px;
+    margin: 10px;
 }
 
+.header-button.active > .md-icon{
+    color: white;
+}
 .jackies-tab{
     background: transparent;
 }
 
+.md-card{
+    background: ghostwhite;
+}

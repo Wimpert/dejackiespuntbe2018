@@ -12,7 +12,8 @@ export default Vue.extend({
     data () {
         return {
             teamData:{},
-            matches:[]
+            matches:[],
+            activeMenuItem: 1
             }
     },
     computed: {
@@ -100,11 +101,11 @@ export default Vue.extend({
             </div>
         </div>
         <div class="row">
-            <div class="header-button">
+            <div class="header-button" v-bind:class="{active: activeMenuItem === 1}">
                 <md-icon>timer</md-icon>
                 <span>Matchen</span>  
             </div>
-            <div class="header-button">
+            <div class="header-button" v-bind:class="{active: activeMenuItem === 2}">
                 <md-icon>equalizer</md-icon>
                 <span>Statistieken</span>
             </div> 

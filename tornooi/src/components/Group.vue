@@ -15,8 +15,6 @@ export default Vue.extend({
             selectedGroupId:undefined,
             leagues:undefined,
             selectedLeagueIndex:undefined
-
-
         }
     },
     mounted(){
@@ -84,11 +82,7 @@ export default Vue.extend({
 </template>
 
 <style>
-.active{
-    color: white;
-    font-weight: bold;
-    
-}
+
 </style>
 
 

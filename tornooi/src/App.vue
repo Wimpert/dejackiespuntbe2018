@@ -49,6 +49,7 @@ export default {
   width: 100%;
   overflow: auto;
   margin-bottom: 56px;
+  background: #daeae4;
 }
 #content{
   flex-grow: 1;
@@ -59,9 +60,10 @@ export default {
   left: 0;
   bottom: 0;
   width: 100%;
-  background: lightblue;
+  background: #52796F;
   border-top: 1px solid darkslategray;
   z-index: 200;
+  color: white
 }
 
 #bottom-bar > div{
@@ -69,6 +71,10 @@ export default {
 }
 
 .activeBottonBarItem{
-  background-color: rgb(122, 157, 168);
+  color: white !important;
+  border-bottom: white 2px solid;
+}
+.activeBottonBarItem i{
+  color: white !important;
 }
 </style>
