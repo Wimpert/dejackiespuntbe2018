@@ -8,11 +8,10 @@ import './assets/style.css'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 
-
-import Overview from './components/Overview.vue'
 import Team from './components/Team.vue'
 import MyTeamPicker from './components/MyTeamPicker.vue'
 import Group from './components/Group.vue'
+import Round from './components/Round.vue'
 
 import dotenv from 'dotenv'
 dotenv.config()
@@ -29,6 +28,7 @@ const routes = [
   { path: '/team', component: MyTeamPicker },
   { path: '/team/:id', name:'team', component: Team },
   { path: '/group/:id?', component: Group, name: "group" },
+  { path: '/round/:id?', component: Round, name: "round" },
   { path:'*', redirect: `/team${window.localStorage.getItem(process.env.VUE_APP_LOCALSTORAGE_TEAM_ID_KEY_NAME)?'/'+window.localStorage.getItem(process.env.VUE_APP_LOCALSTORAGE_TEAM_ID_KEY_NAME):''}`}
 ]
 

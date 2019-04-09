@@ -87,6 +87,7 @@ export default Vue.extend({
 .active{
     color: white;
     font-weight: bold;
+    
 }
 </style>
 

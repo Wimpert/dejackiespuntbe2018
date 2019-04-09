@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <router-view :key="$route.fullPath" id="content"></router-view>
-    <md-bottom-bar id="bottom-bar" :md-active-item="activeRoute" md-type="fixed">
-      <md-bottom-bar-item id="team" :to="teamLink" md-label="Mijn Ploeg" md-icon="favorite"></md-bottom-bar-item>
-      <md-bottom-bar-item id="group" :to="{path:'/group'}" md-label="Groupen" md-icon="list"></md-bottom-bar-item>
-      <md-bottom-bar-item id="round" to="/round" md-label="Rondes" md-icon="access_time"></md-bottom-bar-item>
+    <md-bottom-bar id="bottom-bar" md-active-item="wrong-value" :md-sync-route="false">
+      <md-bottom-bar-item id="team" v-bind:class="{ activeBottonBarItem: activeRoute === 'team' }" :to="teamLink" md-label="Mijn Ploeg" md-icon="favorite"></md-bottom-bar-item>
+      <md-bottom-bar-item id="group" v-bind:class="{ activeBottonBarItem: activeRoute === 'group' }" :to="{path:'/group'}" md-label="Groupen" md-icon="list"></md-bottom-bar-item>
+      <md-bottom-bar-item id="round" v-bind:class="{ activeBottonBarItem: activeRoute === 'round' }" to="/round" md-label="Rondes" md-icon="access_time"></md-bottom-bar-item>
     </md-bottom-bar>
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
     get teamLink(){
       return `/team${window.localStorage.getItem(process.env.VUE_APP_LOCALSTORAGE_TEAM_ID_KEY_NAME)?'/'+window.localStorage.getItem(process.env.VUE_APP_LOCALSTORAGE_TEAM_ID_KEY_NAME):''}`
     },
-    activeRoute:undefined
+    activeRoute:'team'
   }  
   },
   watch:{
@@ -60,15 +60,11 @@ export default {
   z-index: 200;
 }
 
-.md-bottom-bar.md-theme-default.md-type-fixed .md-bottom-bar-item.md-active .md-icon{
-  color: white;
-}
-
-.md-bottom-bar.md-type-fixed .md-bottom-bar-item.md-active .md-bottom-bar-label{
-  color: white;
-}
-
 #bottom-bar > div{
   justify-content: center;
+}
+
+.activeBottonBarItem{
+  background-color: rgb(122, 157, 168);
 }
 </style>
