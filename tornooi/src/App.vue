@@ -11,6 +11,7 @@
 
 <script>
 
+
 export default {
   name: 'app',
   data: function (){ 
@@ -18,11 +19,14 @@ export default {
     get teamLink(){
       return `/team${window.localStorage.getItem(process.env.VUE_APP_LOCALSTORAGE_TEAM_ID_KEY_NAME)?'/'+window.localStorage.getItem(process.env.VUE_APP_LOCALSTORAGE_TEAM_ID_KEY_NAME):''}`
     },
-    activeRoute:'team'
+    activeRoute:undefined
   }  
   },
-  watch:{
-    $route: function(){
+  mounted(){
+    this.setRoute();
+  },
+  methods:{
+    setRoute: function(){
       if(this.$route.name){
         this.activeRoute = this.$route.name;
         const teamId = this.$route.params.id ? this.$route.params.id.toString() : '-99';
@@ -32,6 +36,11 @@ export default {
       } else {
         this.activeRoute = undefined;
       }
+    }
+  },
+  watch:{
+    $route: function(){
+      this.setRoute();
     }
   }
 }
