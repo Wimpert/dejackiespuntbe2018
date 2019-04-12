@@ -86,18 +86,11 @@ export default Vue.extend({
 <div class="team-container team-data">
     <div class="header">
         <div class="row">
-            <div class="header-button active">
+            <div class="header-button team-name">
                 <md-button v-if="selectedTeam" class="md-icon-button md-dense" v-on:click="changeTeamClicked()">
                     <md-icon>keyboard_arrow_left</md-icon>
                 </md-button>
                 {{teamData.name}}
-            </div>
-            <div class="header-button" v-if="teamData && teamData.group">
-                <router-link :to="{ name: 'group', params: { id: teamData.group.id }}" class="jackies-router">
-                <div>
-                <md-icon>list</md-icon>  Group {{teamData.group.name}} <md-icon>keyboard_arrow_right</md-icon>
-                </div> 
-                </router-link>
             </div>
         </div>
         <div class="row">
@@ -112,6 +105,15 @@ export default Vue.extend({
         </div>
        
     </div>
+    <div>
+        <div v-if="teamData && teamData.group" class="group-link">
+                <router-link :to="{ name: 'group', params: { id: teamData.group.id }}" class="jackies-router">
+                <div>
+                <md-icon>list</md-icon>  Group {{teamData.group.name}} <md-icon>keyboard_arrow_right</md-icon>
+                </div> 
+                </router-link>
+            </div>
+    </div>
     <div>Volgende Matchen:</div>
     <match-list v-bind:matches="unPlayedMatches"></match-list>
     <div>Voorbije Matchen:</div>
@@ -124,20 +126,23 @@ export default Vue.extend({
         display: flex;
         flex-direction: column;
     }
+
+    .team-name, .team-name button.md-button{
+        color: white;
+        font-size: 1.1em;
+        font-weight: bold;
+    }
+    
     .header{
         display: flex;
         flex-direction: column;
     }
     
-    .team-name-container{
-        flex-grow: 1;
-        text-align: start;
-        font-size: 1.1em;
-    }
-    
-    .header .jackies-router{
+    .jackies-router{
         color: darkslategray !important;
+        margin: 5px;
     }
+
 
 </style>
 
