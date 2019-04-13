@@ -88,36 +88,42 @@ export default Vue.extend({
         <div class="row">
             <div class="header-button team-name">
                 <md-button v-if="selectedTeam" class="md-icon-button md-dense" v-on:click="changeTeamClicked()">
-                    <md-icon>keyboard_arrow_left</md-icon>
+                    <md-icon style="color:white">keyboard_arrow_left</md-icon>
                 </md-button>
                 {{teamData.name}}
             </div>
         </div>
         <div class="row">
-            <div class="header-button" v-bind:class="{active: activeMenuItem === 1}">
+            <div class="header-button" v-bind:class="{active: activeMenuItem === 1}" v-on:click="activeMenuItem = 1">
                 <md-icon>timer</md-icon>
                 <span>Matchen</span>  
             </div>
-            <div class="header-button" v-bind:class="{active: activeMenuItem === 2}">
+            <div class="header-button" v-bind:class="{active: activeMenuItem === 2}" v-on:click="activeMenuItem = 2">
                 <md-icon>equalizer</md-icon>
                 <span>Statistieken</span>
             </div> 
         </div>
        
     </div>
-    <div>
+    <div v-if="activeMenuItem === 1">
+        <div>
         <div v-if="teamData && teamData.group" class="group-link">
                 <router-link :to="{ name: 'group', params: { id: teamData.group.id }}" class="jackies-router">
                 <div>
-                <md-icon>list</md-icon>  Group {{teamData.group.name}} <md-icon>keyboard_arrow_right</md-icon>
+                <md-icon>list</md-icon>  Group {{teamData.group.name}} <md-icon>zoom_in</md-icon>
                 </div> 
                 </router-link>
             </div>
+     </div>
+        <div>Volgende Matchen:</div>
+        <match-list v-bind:matches="unPlayedMatches"></match-list>
+         <div>Voorbije Matchen:</div>
+        <match-list v-bind:matches="playedMatches"></match-list>
     </div>
-    <div>Volgende Matchen:</div>
-    <match-list v-bind:matches="unPlayedMatches"></match-list>
-    <div>Voorbije Matchen:</div>
-    <match-list v-bind:matches="playedMatches"></match-list>
+    <div v-if="activeMenuItem === 2">
+        stats
+    </div>
+    
 </div>
 </template>
 <style>
@@ -128,7 +134,7 @@ export default Vue.extend({
     }
 
     .team-name, .team-name button.md-button{
-        color: white;
+        color: white !important;
         font-size: 1.1em;
         font-weight: bold;
     }
@@ -141,6 +147,10 @@ export default Vue.extend({
     .jackies-router{
         color: darkslategray !important;
         margin: 5px;
+    }
+
+    .group-link{
+        font-size: 1.2em;
     }
 
 
