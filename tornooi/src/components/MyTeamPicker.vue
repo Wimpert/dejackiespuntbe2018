@@ -15,7 +15,9 @@ export default Vue.extend({
         .get(`${process.env.VUE_APP_API_BASE_URL}/all/teams`,
                 {withCredentials:false}
         ).then(
-            (response) => this.allTeams = response.data
+            (response) => this.allTeams = response.data.sort((team1, team2) => {
+                return team1.name.localeCompare(team2.name);
+            })
         ).catch(
             (err) => this.err = err
         );
