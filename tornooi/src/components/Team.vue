@@ -13,7 +13,13 @@ export default Vue.extend({
         return {
             teamData:{},
             matches:[],
-            activeMenuItem: 1
+            activeMenuItem: 1,
+            played:0,
+            won:0,
+            lost:0,
+            drawed:0,
+            goalsScored:0,
+            goalsConcieved:0
             }
     },
     computed: {
@@ -69,7 +75,8 @@ export default Vue.extend({
                 {withCredentials:false})
             .then(
                     response => {
-                        this.matches = response.data
+                        this.matches = response.data;
+                        this.refreshStats();
                     }
                 ); 
        }
@@ -78,6 +85,42 @@ export default Vue.extend({
         changeTeamClicked: function(){
             window.localStorage.removeItem(process.env.VUE_APP_LOCALSTORAGE_TEAM_ID_KEY_NAME);
             this.$router.push({path:'/team'});
+        },
+        refreshStats: function (){
+           this.played = 0
+            this.won = 0
+       this.lost = 0
+     this.drawed = 0
+    this.goalsScored = 0
+  this.goalsConcieved = 0
+  console.log(this.matches);
+                this.matches.forEach(match => {
+                    this.played++;
+                    if(match.homeTeam.id.toString() === this.$route.params.id){
+                        //is home:
+                        if(match.homeTeamScore > match.outTeamScore){
+                            this.won++;
+                        } else if(match.homeTeamScore > match.outTeamScore){
+                            this.lost++;
+                        } else {
+                            this.drawed++;
+                        }
+                        this.goalsScored =+ match.homeTeamScore;
+                        this.goalsConcieved =+ match.outTeamScore;
+                    } else {
+                        //is out:
+                        //is home:
+                        if(match.homeTeamScore > match.outTeamScore){
+                            this.lost++;
+                        } else if(match.homeTeamScore > match.outTeamScore){
+                            this.won++;
+                        } else {
+                            this.drawed++;
+                        }
+                        this.goalsScored =+ match.outTeamScore;
+                        this.goalsConcieved =+ match.homeTeamScore;
+                    }
+                });
         }
     }
 })
@@ -120,8 +163,29 @@ export default Vue.extend({
          <div>Voorbije Matchen:</div>
         <match-list v-bind:matches="playedMatches"></match-list>
     </div>
-    <div v-if="activeMenuItem === 2">
-        stats
+    <div id="stats-container" v-if="activeMenuItem === 2">
+        <h4>Statistieken:</h4>
+        <div>
+            Matchen gespeeld: {{this.played}}
+        </div>
+        <div>
+            Matchen gewonnen: {{this.won}}
+        </div>
+        <div>
+            Matchen gerloren: {{this.lost}}
+        </div>
+        <div>
+            Matchen gelijk: {{this.drawed}}
+        </div>
+        <div>
+            goals gemaakt: {{this.goalsScored}}
+        </div>
+        <div>
+            goals tegen: {{this.goalsConcieved}}
+        </div>
+        <div>
+            saldo: {{this.goalsScored - this.goalsConcieved}}
+        </div>
     </div>
     
 </div>
@@ -151,6 +215,11 @@ export default Vue.extend({
 
     .group-link{
         font-size: 1.2em;
+    }
+
+    #stats-container > div{
+        margin: 15px;
+        text-align: start;
     }
 
 
