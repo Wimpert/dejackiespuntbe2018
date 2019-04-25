@@ -93,7 +93,6 @@ export default Vue.extend({
      this.drawed = 0
     this.goalsScored = 0
   this.goalsConcieved = 0
-  console.log(this.matches);
                 this.matches.forEach(match => {
                     this.played++;
                     if(match.homeTeam.id.toString() === this.$route.params.id){
