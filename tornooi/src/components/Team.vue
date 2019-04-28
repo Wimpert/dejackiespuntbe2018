@@ -94,6 +94,7 @@ export default Vue.extend({
     this.goalsScored = 0
   this.goalsConcieved = 0
                 this.matches.forEach(match => {
+                    if(match.homeTeamScore !== null && match.outTeamScore !== null){
                     this.played++;
                     if(match.homeTeam.id.toString() === this.$route.params.id){
                         //is home:
@@ -118,6 +119,7 @@ export default Vue.extend({
                         }
                         this.goalsScored =+ match.outTeamScore;
                         this.goalsConcieved =+ match.homeTeamScore;
+                    }
                     }
                 });
         }
