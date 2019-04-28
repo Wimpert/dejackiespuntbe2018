@@ -100,7 +100,7 @@ export default Vue.extend({
                         //is home:
                         if(match.homeTeamScore > match.outTeamScore){
                             this.won++;
-                        } else if(match.homeTeamScore > match.outTeamScore){
+                        } else if(match.homeTeamScore < match.outTeamScore){
                             this.lost++;
                         } else {
                             this.drawed++;
@@ -109,10 +109,9 @@ export default Vue.extend({
                         this.goalsConcieved =+ match.outTeamScore;
                     } else {
                         //is out:
-                        //is home:
-                        if(match.homeTeamScore > match.outTeamScore){
+                        if(match.outTeamScore > match.homeTeamScore){
                             this.lost++;
-                        } else if(match.homeTeamScore > match.outTeamScore){
+                        } else if(match.outTeamScore < match.homeTeamScore){
                             this.won++;
                         } else {
                             this.drawed++;
