@@ -57,15 +57,8 @@ export default Vue.extend({
         }
     },
     mounted () {
-      axios
-      .get(`${process.env.VUE_APP_API_BASE_URL}/teaminfo/${this.$route.params.id}`,
-                {withCredentials:false}
-            )
-            .then(response => 
-                {
-                    this.teamData = response.data
-                }
-                )
+        this.getData();
+      
     },
     watch: {
        matchIDs: function() {
@@ -82,6 +75,17 @@ export default Vue.extend({
        }
     },
     methods: {
+        getData: function(){
+            axios
+      .get(`${process.env.VUE_APP_API_BASE_URL}/teaminfo/${this.$route.params.id}`,
+                {withCredentials:false}
+            )
+       .then(response => 
+                {
+                    this.teamData = response.data
+                }
+        )
+        },
         changeTeamClicked: function(){
             window.localStorage.removeItem(process.env.VUE_APP_LOCALSTORAGE_TEAM_ID_KEY_NAME);
             this.$router.push({path:'/team'});
@@ -149,14 +153,18 @@ export default Vue.extend({
        
     </div>
     <div v-if="activeMenuItem === 1">
-        <div>
+        <div class="row">
         <div v-if="teamData && teamData.group" class="group-link">
                 <router-link :to="{ name: 'group', params: { id: teamData.group.id }}" class="jackies-router">
                 <div>
                 <md-icon>list</md-icon>  Group {{teamData.group.name}} <md-icon>zoom_in</md-icon>
                 </div> 
                 </router-link>
+                
             </div>
+            <button v-on:click="getData">
+                <md-icon>refresh</md-icon>
+            </button>
      </div>
         <div>Volgende Matchen:</div>
         <match-list v-bind:matches="unPlayedMatches"></match-list>
@@ -191,6 +199,12 @@ export default Vue.extend({
 </div>
 </template>
 <style>
+
+    .row{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        }
 
     .team-data{
         display: flex;
